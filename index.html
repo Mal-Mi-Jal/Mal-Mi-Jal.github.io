@@ -77,7 +77,8 @@
     margin: 0 0 10px;
   }
   .item .links { font-size: 15px; gap: 16px; }
-  .shot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin: 4px 0 14px; }
+  .shot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin: 4px 0 6px; }
+  .caption { color: var(--muted); font-size: 14px; margin: 0 0 14px !important; }
 
   .grid { display: grid; grid-template-columns: 140px 1fr; gap: 10px 24px; }
   .grid dt { color: var(--muted); font-size: 15px; }
@@ -125,7 +126,8 @@
       <li>Added a separate "is this a noodle dish?" gate after a non-ramen photo was classified as ramen. On 30 unseen photos: 14/14 other foods rejected, no real ramen rejected; noodle-less soup bowls still pass (2/18 false accepts, documented as a limit).</li>
       <li>12 experiments written up with before/after numbers, failures, and what was reverted.</li>
     </ul>
-    <img class="shot" src="https://raw.githubusercontent.com/Mal-Mi-Jal/ramen-vision-bot/main/docs/images/demo.png" alt="Demo: an aburasoba photo is uploaded and the bot answers with the style and a sourced explanation" loading="lazy">
+    <img class="shot" src="media/ramen-vision-bot.gif" alt="Demo: an aburasoba photo is uploaded, analyzed locally in about 14 seconds, and the bot answers with the style, what it saw, how to tell, origin, and sources" loading="lazy">
+    <p class="caption">Real run on my PC: upload → local analysis (14 s) → style with sourced explanation.</p>
     <p class="stack">Python · Ollama (qwen2.5vl:7b, 4-bit) · bge-m3 · Chroma · FastAPI</p>
     <div class="links">
       <a href="https://github.com/Mal-Mi-Jal/ramen-vision-bot">Code</a>
@@ -146,6 +148,8 @@
       <li>Guarded the MCP file tool against path traversal (<code>../</code>).</li>
       <li>Deployed in Docker on a 512&nbsp;MB free instance by switching heavy modules off with an environment flag (≈124&nbsp;MB vs ≈1.5&nbsp;GB measured).</li>
     </ul>
+    <img class="shot" src="media/ai-research-agent.gif" alt="Demo: a topic is sent to POST /research and the agent returns a Korean report with numbered citations and a source list" loading="lazy">
+    <p class="caption">Real run of the deployed configuration: <code>POST /research</code> → report with numbered citations; the last frames show the same response rendered as Markdown.</p>
     <p class="stack">Python · LangGraph · Claude · Tavily · Chroma · MCP · n8n · Docker · Render</p>
     <div class="links">
       <a href="https://github.com/Mal-Mi-Jal/Ai-research-agent">Code</a>
