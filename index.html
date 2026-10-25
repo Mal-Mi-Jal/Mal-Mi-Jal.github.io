@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kim Tae Woo</title>
+<meta name="description" content="Kim Tae Woo — AI engineer and backend developer. Local vision + RAG, LangGraph agents, Kotlin/Spring Boot services.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --text: #1b1c1a;
+    --muted: #5f625c;
+    --line: #dcdad3;
+    --accent: #b8452a;
+    --chip: #ebe9e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151614;
+      --text: #ecebe6;
+      --muted: #a3a59e;
+      --line: #2f312d;
+      --accent: #e0805f;
+      --chip: #22241f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent); }
+
+  header { padding: 96px 0 72px; }
+  h1 {
+    font-size: clamp(56px, 13vw, 112px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    margin: 0 0 28px;
+  }
+  .intro { max-width: 34em; margin: 0 0 20px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 15px; }
+
+  section { padding: 40px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+  .item { margin-bottom: 44px; }
+  .item:last-child { margin-bottom: 0; }
+  .item h3 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .meta { color: var(--muted); font-size: 15px; margin: 2px 0 12px; }
+  .item p { margin: 0 0 12px; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+  .num { font-weight: 600; }
+  .stack {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .item .links { font-size: 15px; gap: 16px; }
+  .shot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin: 4px 0 14px; }
+
+  .grid { display: grid; grid-template-columns: 140px 1fr; gap: 10px 24px; }
+  .grid dt { color: var(--muted); font-size: 15px; }
+  .grid dd { margin: 0; }
+  @media (max-width: 560px) {
+    header { padding: 64px 0 48px; }
+    .grid { grid-template-columns: 1fr; gap: 2px; }
+    .grid dd { margin-bottom: 12px; }
+  }
+
+  footer { padding: 40px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Kim<br>Tae Woo</h1>
+  <p class="intro">
+    I build LLM systems and the backend services around them. I like finding exactly where a small model
+    fails, measuring it, and fixing it with design instead of a bigger model — a local vision + RAG pipeline,
+    a LangGraph research agent, and a Kotlin / Spring Boot review service. Looking for AI engineer and backend roles.
+  </p>
+  <nav class="links">
+    <a href="mailto:gom15465@gmail.com">Email</a>
+    <a href="https://github.com/Mal-Mi-Jal">GitHub</a>
+  </nav>
+</header>
+
+<section>
+  <h2>Projects</h2>
+
+  <div class="item">
+    <h3>Ramen Vision Bot</h3>
+    <div class="meta">Sep 2026 · personal</div>
+    <p>
+      Classifies the style of ramen from a photo and explains the answer with sources, running entirely on one 8&nbsp;GB GPU.
+      A 7B vision model alone kept inventing styles, so I split the task: the VLM only describes what it sees,
+      and retrieval over a curated knowledge base makes the call.
+    </p>
+    <ul>
+      <li>On 25 held-out photos never used for tuning: VLM alone <span class="num">28%</span> → full pipeline <span class="num">60%</span>.</li>
+      <li>Embeddings ignored negation ("no broth"), so I moved to hybrid retrieval (metadata filter + vector search); retrieval recall <span class="num">61% → 91%</span>.</li>
+      <li>Answers and source links are assembled by code from the documents, not written by the LLM, so every sentence is traceable.</li>
+      <li>Added a separate "is this a noodle dish?" gate after a non-ramen photo was classified as ramen. On 30 unseen photos: 14/14 other foods rejected, no real ramen rejected; noodle-less soup bowls still pass (2/18 false accepts, documented as a limit).</li>
+      <li>12 experiments written up with before/after numbers, failures, and what was reverted.</li>
+    </ul>
+    <img class="shot" src="https://raw.githubusercontent.com/Mal-Mi-Jal/ramen-vision-bot/main/docs/images/demo.png" alt="Demo: an aburasoba photo is uploaded and the bot answers with the style and a sourced explanation" loading="lazy">
+    <p class="stack">Python · Ollama (qwen2.5vl:7b, 4-bit) · bge-m3 · Chroma · FastAPI</p>
+    <div class="links">
+      <a href="https://github.com/Mal-Mi-Jal/ramen-vision-bot">Code</a>
+      <a href="https://github.com/Mal-Mi-Jal/ramen-vision-bot/blob/main/docs/experiments.md">Experiments</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>AI Research Agent</h3>
+    <div class="meta">Sep 2026 · personal</div>
+    <p>
+      A LangGraph agent that researches a topic and writes a report citing original sources
+      (search → relevance check → outline → evidence retrieval → writing), served three ways: REST API, MCP server, and a daily n8n workflow.
+    </p>
+    <ul>
+      <li>Found a semantic-cache bug: an English-only embedding scored two different Korean questions at <span class="num">0.928</span> and returned the wrong cached report. A multilingual model separated them (<span class="num">0.572</span>); picked the <span class="num">0.92</span> threshold by measuring 11 question pairs.</li>
+      <li>MMR retrieval raised cited sources per section from <span class="num">13 → 16</span>; the source list is attached by code to prevent invented citations.</li>
+      <li>Guarded the MCP file tool against path traversal (<code>../</code>).</li>
+      <li>Deployed in Docker on a 512&nbsp;MB free instance by switching heavy modules off with an environment flag (≈124&nbsp;MB vs ≈1.5&nbsp;GB measured).</li>
+    </ul>
+    <p class="stack">Python · LangGraph · Claude · Tavily · Chroma · MCP · n8n · Docker · Render</p>
+    <div class="links">
+      <a href="https://github.com/Mal-Mi-Jal/Ai-research-agent">Code</a>
+      <a href="https://ai-research-agent-ctjj.onrender.com/docs">Live API</a>
+      <span class="meta" style="margin:0">(free tier — may take a minute to wake up)</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>RamenLog</h3>
+    <div class="meta">Jun – Sep 2026 · personal, backend and frontend</div>
+    <p>
+      A ramen review service where you can only review a shop you actually visited:
+      the app verifies the visit by GPS radius and time spent inside it.
+    </p>
+    <ul>
+      <li>Visit verification with the haversine distance; radius (<span class="num">50&nbsp;m</span>) and stay time (<span class="num">20&nbsp;min</span>) are external config, and a <code>@Scheduled</code> job completes verifications.</li>
+      <li>Kakao Local API search filtered by exact category match so only ramen shops come back; results are stored so nearby search needs no external call.</li>
+      <li>JWT access / refresh tokens with Spring Security, and a global exception handler.</li>
+      <li>JUnit 5 + Mockito boundary tests at ~40&nbsp;m / ~60&nbsp;m caught a missing-config bug the original 0&nbsp;m test missed.</li>
+      <li>Multi-stage Docker build deployed to Railway; secrets in environment variables.</li>
+    </ul>
+    <p class="stack">Kotlin · Spring Boot · JPA · Spring Security · PostgreSQL · JWT · JavaScript · Docker · Railway · Vercel</p>
+    <div class="links">
+      <a href="https://github.com/Mal-Mi-Jal/Ramen-frontend">Code &amp; overview</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Education &amp; training</h2>
+  <div class="item">
+    <h3>Super Coding</h3>
+    <div class="meta">Sep 2025 – Jul 2026 · backend development bootcamp</div>
+  </div>
+  <div class="item">
+    <h3>Sangmyung University</h3>
+    <div class="meta">Mar 2019 – Jan 2023 · withdrew</div>
+  </div>
+</section>
+
+<section>
+  <h2>Toolkit</h2>
+  <dl class="grid">
+    <dt>AI / LLM</dt><dd>LangGraph, RAG, hybrid retrieval, structured output, MCP, local LLM/VLM with Ollama, evaluation (held-out sets, retrieval recall)</dd>
+    <dt>Backend</dt><dd>Kotlin, Java, Spring Boot, JPA, Spring Security, JWT, FastAPI</dd>
+    <dt>Data</dt><dd>PostgreSQL, Chroma, embeddings (bge-m3, sentence-transformers)</dd>
+    <dt>Infra</dt><dd>Docker, Railway, Render, Vercel, n8n</dd>
+    <dt>Testing</dt><dd>JUnit 5, Mockito</dd>
+  </dl>
+</section>
+
+<footer>
+  <div>Kim Tae Woo · <a href="mailto:gom15465@gmail.com">gom15465@gmail.com</a></div>
+</footer>
+
+</div>
+</body>
+</html>
