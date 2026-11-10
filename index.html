@@ -100,7 +100,8 @@
   <p class="intro">
     I build LLM systems and the backend services around them. I like finding exactly where a small model
     fails, measuring it, and fixing it with design instead of a bigger model — a local vision + RAG pipeline,
-    a LangGraph research agent, and a Kotlin / Spring Boot review service. Looking for AI engineer and backend roles.
+    a LangGraph research agent, a Kotlin / Spring Boot review service, and a real-time group decision service in Java.
+    At a hackathon I owned the server and Google Docs integration for a team of four. Looking for backend and AI engineer roles.
   </p>
   <nav class="links">
     <a href="mailto:gom15465@gmail.com">Email</a>
@@ -178,6 +179,45 @@
       <a href="https://github.com/Mal-Mi-Jal/Ramen-frontend">Frontend code &amp; overview</a>
     </div>
   </div>
+
+  <div class="item">
+    <h3>Quiet Consensus</h3>
+    <div class="meta">2026 · personal</div>
+    <p>
+      A real-time group decision service: everyone enters their conditions privately on their phone (budget, food likes and dislikes, allergies),
+      and a shared screen finds the option that leaves nobody far behind. The LLM only translates and words questions; plain Java code decides.
+    </p>
+    <ul>
+      <li>Fair decision engine: in a simulation of 3,000 random groups, the least-satisfied person got <span class="num">34.3%</span> vs <span class="num">29.1%</span> when one person decides, at an average cost of <span class="num">0.4&nbsp;pp</span>.</li>
+      <li>Anonymity is enforced on the server: public and private WebSocket (STOMP) channels, and the public view type has no condition fields — checked with real STOMP clients in tests.</li>
+      <li>One lock per room; Claude calls run after the lock is released, with a timeout. A test fires 8 threads × 300 actions at one room.</li>
+      <li>The AI mediator asks only the one person whose condition blocks the group; any number in the AI's sentence that the code did not supply is rejected.</li>
+      <li>Free-text parsing went from <span class="num">75%</span> (LLM alone) to <span class="num">12/12</span> with code rules on a small self-written set; 57 tests.</li>
+    </ul>
+    <img class="shot" src="media/quiet-consensus.gif" alt="Demo at 2x speed: a shared screen and three phones; conditions entered privately, cards rated per phone, a veto, the AI mediator asks one person and candidates grow from 13 to 18, the host confirms, and an anonymous allergy check appears" loading="lazy">
+    <p class="caption">Recorded at 2× with a shared screen and three phones, without an API key (the mediator uses its built-in sentence). Full 84-second video in the README.</p>
+    <p class="stack">Java 21 · Spring Boot · WebSocket (STOMP) · Claude API · JUnit 5</p>
+    <div class="links">
+      <a href="https://github.com/Mal-Mi-Jal/quiet-consensus-poc">Code &amp; video</a>
+      <a href="https://github.com/Mal-Mi-Jal/quiet-consensus-poc/blob/main/docs/research.md">Experiments</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>LostAI — meeting agent (hackathon, team of 4)</h3>
+    <div class="meta">2026 · c0mpiled-17 Seoul hackathon · server, UI and Google integration</div>
+    <p>
+      Speak in a meeting and the agent edits the team's own Google Sheets and Docs in real time, with who-said-what attached to every change.
+      I owned the meeting server, the screen, the Google integration, latency measurement and deployment. The team repository is private.
+    </p>
+    <ul>
+      <li>Writes to the original documents cell by cell and paragraph by paragraph; reset replays the changes in reverse, matching the pre-meeting backup on a real team document.</li>
+      <li>Pre-syncing at startup cut the first Google sync from <span class="num">1849&nbsp;ms</span> to <span class="num">445&nbsp;ms</span> (Google API part only); an LLM warm-up cut the first reply from 3.5–8&nbsp;s to <span class="num">1.2&nbsp;s</span>.</li>
+      <li>A per-stage latency tool showed that about 5&nbsp;s of an 8&nbsp;s speech-to-screen delay was queue wait; the 2.5&nbsp;s goal was not met.</li>
+      <li>Worked within team rules agreed before coding (owned folders, notify before editing others' code, per-person progress notes); 9 pull requests, 6 merged after review.</li>
+    </ul>
+    <p class="stack">Python · FastAPI · WebSocket · React · TypeScript · Claude API · Google Sheets / Docs API · Docker · Railway</p>
+  </div>
 </section>
 
 <section>
@@ -196,7 +236,7 @@
   <h2>Toolkit</h2>
   <dl class="grid">
     <dt>AI / LLM</dt><dd>LangGraph, RAG, hybrid retrieval, structured output, MCP, local LLM/VLM with Ollama, evaluation (held-out sets, retrieval recall)</dd>
-    <dt>Backend</dt><dd>Kotlin, Java, Spring Boot, JPA, Spring Security, JWT, FastAPI</dd>
+    <dt>Backend</dt><dd>Java, Kotlin, Spring Boot, JPA, Spring Security, JWT, WebSocket (STOMP), FastAPI</dd>
     <dt>Data</dt><dd>PostgreSQL, Chroma, embeddings (bge-m3, sentence-transformers)</dd>
     <dt>Infra</dt><dd>Docker, Railway, Render, Vercel, n8n</dd>
     <dt>Testing</dt><dd>JUnit 5, Mockito</dd>
